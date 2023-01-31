@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tematika</title>
+    <!-- ========== Boxicons ========== -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <!-- ========== CSS ========== -->
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+
+  <body>
+    <main class="main">
+      <div class="section">
+
+        <h3 class="section__title">Kalkulator Modulo</h1>
+
+        <div class="form__container container">
+          <div class="form__div menu__card">
+            <input type="text" name="nilai" class="form__input" id="nilai">
+            <span class="form__desc">mod</span>
+            <input type="text" name="mod" class="form__input" id="mod">
+
+            <div class="btn--group">
+              <button class="btn btn--primary" id="hitung">Hitung</button>
+              <button class="btn btn--danger" id="reset">Reset</button>
+            </div>
+          </div>
+
+          <div class="form__div menu__card">
+            <h3 class="section__title" style="margin-bottom: 1rem; text-align:left;">Hasil</h3>
+            <input type="text" name="hasil" id="hasil" class="form__input" readonly>
+          </div>
+
+        <a href="/index.html" class="btn--back"><i class='bx bx-left-arrow-alt icon'></i> Kembali ke halaman utama.</a>
+      </div>
+    </main>
+
+    <!--===== FOOTER =====-->
+    <footer class="footer">
+      <p class="footer__title">Fajar Ghifari</p>
+      <p class="footer__copy">&#169; FajaralDev. All rigths reserved</p>
+    </footer>
+
+    <!-- ========== SweetAlert ========== -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      const inputNilai = document.getElementById("nilai");
+      const inputPembagi = document.getElementById("mod");
+      const btnHitung = document.getElementById("hitung");
+      const btnReset = document.getElementById("reset");
+      const hasil = document.getElementById("hasil");
+
+      hitung.addEventListener('click', operasiModulus);
+      reset.addEventListener('click', resetForm);
+
+      function operasiModulus(){
+        let nilai = inputNilai.value;
+        let dibagi = inputPembagi.value;
+
+        var validNumber = new RegExp(/^-?\d*\.?\d*$/);
+
+        if (validNumber.test(nilai) && validNumber.test(dibagi)) {
+          if (!(nilai=='' || dibagi=='')) {
+            let sisa = nilai % dibagi;
+
+            hasil.value = `${nilai} mod ${dibagi} = ${sisa}`;
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Gagal!',
+              text: 'Form tidak boleh kosong!',
+            });
+          }
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: 'Pastikan yang Anda masukan adalah angka!',
+          });
+        }
+      }
+
+      function resetForm() {
+        Swal.fire({
+          title: 'Apakah Anda yakin untuk mereset form?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            inputNilai.value = '';
+            inputPembagi.value = '';
+            hasil.value = '';
+            Swal.fire(
+              'Berhasil!',
+              'Form berhasil direset.',
+              'success'
+            );
+          }
+        });
+      }
+    </script>
+
+  </body>
+
+</html>
